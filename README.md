@@ -10,6 +10,13 @@
 
 ### Terraform to launch ec2 with VPC, subents, SG services of AWS
 
+### Terraform installation and setting up the path in env variable
+- setting env variables for our aws keys
+- system ( control panel) - advanced settings - enviroment variable - edit the system variable 
+- name env var as `AWS_ACCESS_KEY_ID` for secret key `AWS_SECRET_ACCESS_KEY` 
+
+### Securing AWS keys with Terraform
+
 
 
 - ![image](https://user-images.githubusercontent.com/47173937/117649454-72396f00-b187-11eb-87fb-de7504d88994.png)
