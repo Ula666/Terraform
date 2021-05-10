@@ -19,10 +19,10 @@
 
 ### Terraform commands:
 ```
-# terraform init
-# terraform plan
-# terraform apply
-# terraform destroy 
+# terraform init - to initialise the terraform with required dependencies of the provider mentioned in the main.tf
+# terraform plan - to check the synstax of the code
+# terraform apply - to run the code
+# terraform destroy - to terminate the instnace
 ```
 
 - we have to restart git bash after adding credentials in env var. 
