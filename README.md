@@ -14,9 +14,38 @@
 - setting env variables for our aws keys
 - system ( control panel) - advanced settings - enviroment variable - edit the system variable 
 - name env var as `AWS_ACCESS_KEY_ID` for secret key `AWS_SECRET_ACCESS_KEY` 
+- in the system variables
+
+
+### Terraform commands:
+```
+# terraform init
+# terraform plan
+# terraform apply
+# terraform destroy 
+```
+
+- we have to restart git bash after adding credentials in env var. 
 
 ### Securing AWS keys with Terraform
 
 
 
 - ![image](https://user-images.githubusercontent.com/47173937/117649454-72396f00-b187-11eb-87fb-de7504d88994.png)
+
+
+
+```
+provider "aws"{
+	region = "eu-west-1"
+} 
+resource "aws_instance" "app_instance"{
+	ami = "ami-0fef271f53d5912fe"
+	instance_type = "t2.micro"
+	associate_public_ip_address = true
+	tags = {
+		Name = "eng84_ula_terraform_node_app"
+	}
+
+}
+```
