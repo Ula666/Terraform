@@ -58,8 +58,7 @@ AWS created Gov cloud to solve these issues
 - we have to restart git bash after adding credentials in env var. 
 
 
-
-
+- hybrid cloud:
 - ![image](https://user-images.githubusercontent.com/47173937/117793239-f18c7880-b243-11eb-8e91-de5c5024e74a.png)
 
 
