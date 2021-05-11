@@ -8,7 +8,20 @@
 - Is part of IAC, specifically dealing with orchestration of infrastructure in the cloud.
 - Orchestration tools to configure out instances and their AWS configurations remotely.
 - Terraform files are created with .tf extension
+-benfits: (Automation, review plan before deployment, )
 
+### Tools available as IAC:
+- Terraform
+- Ansible
+- AWS CloudFormation
+- Azure Resource Manager
+- Google Cloud Deployment Manager
+- Chef
+- Puppet
+- Vagrant
+
+### Tools available for automation:
+- Jenkins, CircleCI, TeamCity, Bamboo, GitLab
 
 ### Terraform to launch ec2 with VPC, subents, SG services of AWS
 
