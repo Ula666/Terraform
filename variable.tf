@@ -1,47 +1,34 @@
-# new file
-variable "vpc_name" {
-  default = "ula_terraform_vpc"
+# Creating variables to apply DRY
+# Variables can be called on main.tf
+variable "aws_vpc_name" {
+  default = "eng84_ula_terraform_vpc"
 }
 
-variable "pub_subnet_name" {
-  default = "testing_subnet_ula"
-}
-
-variable "igw_name"{
-  default = "terraform_ula_igw"
-}
-
-variable "pub_rt_name"{
-  default = "terraform_ula_main_rt"
-}
-
-variable "pub_sec_name"{
-  default = "eng84_ula_pub_sec"
-}
-
-
-
-
-
-
-variable "name" {
-	default = "eng84_ula_terraform_app"
+variable "webapp_name" {
+  default = "eng84_ula_terraform_web"
 }
 
 variable "webapp_ami_id" {
-	default = "ami-0fef271f53d5912fe"
+  default = "ami-0fef271f53d5912fe"
 }
 
-# variable "aws_subnet" {
-# 	default = "terraform_code_testing_with_subnet_var_ula"
-# }
+variable "aws_subnet_name" {
+  default = "eng84_ula_terraform_subnet"
+}
 
 variable "aws_key_name" {
-	default = "eng84devops"
+  default = "eng84devops"
 }
 
 variable "aws_key_path" {
-	default = "~/.ssh/eng84devops.pem"
+  default = "~/.ssh/eng84devops.pem"
 }
+
+variable "my_ip" {
+  default = "192.168.56.1/32"
+}
+
+
+
 
 
