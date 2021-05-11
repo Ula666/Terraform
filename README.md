@@ -65,10 +65,9 @@ AWS created Gov cloud to solve these issues
 - ![image](https://user-images.githubusercontent.com/47173937/117793239-f18c7880-b243-11eb-8e91-de5c5024e74a.png)
 
 ### private cloud:
-- The cloud infrastructure is located inside the organization and it is not shared with anyone without the permission of the organization is called the private cloud. 
-- Private cloud as most secure among all the cloud deployments.
+- The cloud infrastructure is located inside the organization and it is not shared with anyone without the permission of the organization. 
+- Secure - Private cloud as most secure among all the cloud deployments.
 - Customization, scaling and flexibility control is higher in the private cloud. Hardware and software are built only for the owner.
-- security
 - performance
 - ![image](https://user-images.githubusercontent.com/47173937/117797403-e20f2e80-b247-11eb-9f3d-bece94562b5b.png)
 
