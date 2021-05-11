@@ -20,6 +20,21 @@
 - Puppet
 - Vagrant
 
+### hybrid cloud is more expensive
+
+### In AWS US, they have data centres we can't buy.
+- Renting the services - pay as you go
+- Created gov cloud - for government sector only
+
+-Five years ago, companies wanted to migrate to the cloud
+-Secret services were not willing to integrate due to security
+
+- Issues:
+- Premises goes on fire
+- Stealing data (hard drives)
+- Physical security only
+
+AWS created Gov cloud to solve these issues
 ### Tools available for automation:
 - Jenkins, CircleCI, TeamCity, Bamboo, GitLab
 
