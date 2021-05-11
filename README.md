@@ -1,7 +1,5 @@
 # Terraform
-- AMI:
-- App:   ami-0fef271f53d5912fe
-- DB:    ami-07045bfe1bab353dc
+
 
 # Terrfarom and Benefits
 - Terraform is an open source “Infrastructure as Code” tool, created by HashiCorp.
@@ -37,25 +35,6 @@ AWS created Gov cloud to solve these issues
 ### Tools available for automation:
 - Jenkins, CircleCI, TeamCity, Bamboo, GitLab
 
-### Terraform to launch ec2 with VPC, subents, SG services of AWS
-
-### Terraform installation and setting up the path in env variable
-- setting env variables for our aws keys
-- system ( control panel) - advanced settings - enviroment variable - edit the system variable 
-- name env var as `AWS_ACCESS_KEY_ID` for secret key `AWS_SECRET_ACCESS_KEY` 
-- in the system variables
-
-
-### Terraform commands:
-```
-# terraform init - to initialise the terraform with required dependencies of the provider mentioned in the main.tf
-# terraform plan - to check the synstax of the code
-# terraform apply - to run the code
-# terraform destroy - to terminate the instnace
-```
-
-- we have to restart git bash after adding credentials in env var. 
-
 
 ### hybrid cloud:
 - The combination of private and public cloud deployments  
@@ -78,6 +57,25 @@ AWS created Gov cloud to solve these issues
 - ![image](https://user-images.githubusercontent.com/47173937/117797453-f4896800-b247-11eb-9445-0c661860207b.png)
 
 
+### Terraform to launch ec2 with VPC, subents, SG services of AWS
+
+### Terraform installation and setting up the path in env variable
+- setting env variables for our aws keys
+- system ( control panel) - advanced settings - enviroment variable - edit the system variable 
+- name env var as `AWS_ACCESS_KEY_ID` for secret key `AWS_SECRET_ACCESS_KEY` 
+- in the system variables
+
+
+### Terraform commands:
+```
+# terraform init - to initialise the terraform with required dependencies of the provider mentioned in the main.tf
+# terraform plan - to check the synstax of the code
+# terraform apply - to run the code
+# terraform destroy - to terminate the instnace
+```
+
+- we have to restart git bash after adding credentials in env var. 
+
 ```
 provider "aws"{
 	region = "eu-west-1"
@@ -92,3 +90,7 @@ resource "aws_instance" "app_instance"{
 
 }
 ```
+
+- AMI:
+- App:   ami-0fef271f53d5912fe
+- DB:    ami-07045bfe1bab353dc
