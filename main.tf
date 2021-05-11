@@ -38,7 +38,7 @@ resource "aws_instance" "app_instance"{
 # Resource block of code ends here 
 
 
-
+# block of code to create a default VPC
 resource "aws_default_vpc" "Terraform_vpc_code_test"{
 	#cidr_block = "10.0.0.0/16"
 	#instance_tenancy = "default"
@@ -48,6 +48,7 @@ resource "aws_default_vpc" "Terraform_vpc_code_test"{
 		Name = "eng84ula_terraform_vpc"
 	}
 }
+
 
 # block of code to create a default VPC
 #resource "aws_default_vpc" "default" {
@@ -60,8 +61,6 @@ resource "aws_default_vpc" "Terraform_vpc_code_test"{
 	#}
 
 # Resource block of code for VPC ends here 
-
-
 
 
 

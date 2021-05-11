@@ -4,9 +4,11 @@
 - DB:    ami-07045bfe1bab353dc
 
 # Terrfarom and Benefits
+- Terraform is an open source “Infrastructure as Code” tool, created by HashiCorp.
 - Is part of IAC, specifically dealing with orchestration of infrastructure in the cloud.
+- Orchestration tools to configure out instances and their AWS configurations remotely.
+- Terraform files are created with .tf extension
 
-## Terrafrom most used commands
 
 ### Terraform to launch ec2 with VPC, subents, SG services of AWS
 
@@ -26,8 +28,6 @@
 ```
 
 - we have to restart git bash after adding credentials in env var. 
-
-### Securing AWS keys with Terraform
 
 
 
