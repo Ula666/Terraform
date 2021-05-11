@@ -72,7 +72,7 @@ AWS created Gov cloud to solve these issues
 - performance
 - ![image](https://user-images.githubusercontent.com/47173937/117797403-e20f2e80-b247-11eb-9f3d-bece94562b5b.png)
 
-###- public cloud:
+### public cloud:
 - Users over the internet use cloud services in which the infrastructure is based on the cloud computing company. - Public cloud is not that secure and the organizations with sensitive information are not ought to use this cloud. The information is available for everyone who uses the cloud.
 - costs
 - scalablility
