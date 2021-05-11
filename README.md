@@ -20,7 +20,6 @@
 - Puppet
 - Vagrant
 
-### hybrid cloud is more expensive
 
 ### In AWS US, they have data centres we can't buy.
 - Renting the services - pay as you go
@@ -58,9 +57,26 @@ AWS created Gov cloud to solve these issues
 - we have to restart git bash after adding credentials in env var. 
 
 
-- hybrid cloud:
+### hybrid cloud:
+- The combination of private and public cloud deployments  
+- advantage of public cloud while doing heavy workloads and the information is secure as private cloud is incorporated within the same.
+- the most expensive
+- Better support for a remote workforce
 - ![image](https://user-images.githubusercontent.com/47173937/117793239-f18c7880-b243-11eb-8e91-de5c5024e74a.png)
 
+### pirvate cloud:
+- The cloud infrastructure is located inside the organization and it is not shared with anyone without the permission of the organization is called the private cloud. 
+- Private cloud as most secure among all the cloud deployments.
+- Customization, scaling and flexibility control is higher in the private cloud. Hardware and software are built only for the owner.
+- security
+- performance
+- ![image](https://user-images.githubusercontent.com/47173937/117797403-e20f2e80-b247-11eb-9f3d-bece94562b5b.png)
+
+###- public cloud:
+- Users over the internet use cloud services in which the infrastructure is based on the cloud computing company. - Public cloud is not that secure and the organizations with sensitive information are not ought to use this cloud. The information is available for everyone who uses the cloud.
+- costs
+- scalablility
+- ![image](https://user-images.githubusercontent.com/47173937/117797453-f4896800-b247-11eb-9445-0c661860207b.png)
 
 
 ```
