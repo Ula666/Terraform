@@ -94,3 +94,9 @@ resource "aws_instance" "app_instance"{
 - AMI:
 - App:   ami-0fef271f53d5912fe
 - DB:    ami-07045bfe1bab353dc
+
+
+## TASK:
+- ![image](https://user-images.githubusercontent.com/47173937/117986476-933dc380-b331-11eb-995e-42b5c6969012.png)
+- 
+
