@@ -97,6 +97,7 @@ resource "aws_instance" "app_instance"{
 
 
 ## TASK:
-- ![image](https://user-images.githubusercontent.com/47173937/117986476-933dc380-b331-11eb-995e-42b5c6969012.png)
+- ![image](https://user-images.githubusercontent.com/47173937/117986835-e152c700-b331-11eb-82d2-4975e1ff5934.png)
+
 - 
 
