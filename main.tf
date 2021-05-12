@@ -1,5 +1,4 @@
 # Let's initialise Terraform
-# AWS - our provider
 # This code will launch an EC2 instance for us
 
 # provider is a keyword in Terraform to define the name of the cloud provider
@@ -8,7 +7,7 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-# Create a VPC.
+# Create a VPC
 resource "aws_vpc" "terraform_vpc" {
   cidr_block = "30.0.0.0/16"
   instance_tenancy = "default"
@@ -31,7 +30,6 @@ resource "aws_internet_gateway" "terraform_ig" {
 resource "aws_subnet" "subnet_for_vpc" {
   vpc_id = aws_vpc.terraform_vpc.id
   cidr_block = "30.0.1.0/24"
-
   map_public_ip_on_launch = true # Make it a public subnet
 
   tags = {
@@ -81,7 +79,7 @@ resource "aws_security_group" "terraform_webapp_sg" {
     description = "Allow admin to SSH"
   }
 
-  # Outboun rules
+  # Outbound rules
   egress {
     from_port = 0
     to_port = 0
@@ -100,52 +98,24 @@ resource "aws_security_group" "terraform_webapp_sg" {
 resource "aws_instance" "web_app_instance" {
   # var.name_of_resource loads the value from variable.tf
   ami = var.webapp_ami_id
-
   # Adding the instance type
   instance_type = "t2.micro"
-
-
   # Enabling a public IP for the web app
   associate_public_ip_address = true
-
   # Specifying the key (to SSH)
   key_name = var.aws_key_name
   #public_key = var.aws_key_path
-
   # Assigning a subnet
   subnet_id = aws_subnet.subnet_for_vpc.id
-
   # Security group
   vpc_security_group_ids = [aws_security_group.terraform_webapp_sg.id]
-
-  # # Move the provisions from local machine to the instance
-  # provisioner "file" {
-  #   source = "scripts/app/init.sh.tpl"
-  #   destination = "/home/ubuntu/init.sh.tpl"
-  # }
-  
-  # # Allow it to be executable and run it
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /home/ubuntu/init.sh.tpl",
-  #     "sudo /home/ubuntu/init.sh.tpl"
-  #   ]
-  # }
-  
-  # # Establish the cnnection for provisioning
-  # connection {
-  #   user        = "ubuntu"
-  #   agent       = true
-  #   private_key = file(var.aws_key_path)
-  #   host        = aws_instance.web_app_instance.public_ip
-  # }
 
   tags = {
     Name = var.webapp_name
   }
 }
 
-# inject script into the instance
+# script for the app instance
 data "template_file" "app_init" {
     template = "${file("./scripts/app/init.sh.tpl")}"
 }
