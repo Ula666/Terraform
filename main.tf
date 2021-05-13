@@ -153,6 +153,38 @@ resource "aws_security_group_rule" "priv_vpc_access" {
 
 
 
+# Launch db instance
+resource "aws_instance" "db_instance" {
+  ami = var.db_ami_id
+  instance_type = "t2.micro"
+  associate_public_ip_address = true
+  key_name = var.aws_key_name
+  subnet_id = aws_subnet.subnet_for_vpc_private.id
+  private_ip = var.db_ip
+  vpc_security_group_ids = [aws_security_group.terraform_db_sg.id]
+
+
+  tags = {
+    Name = var.db_name
+  }
+}
+
+
+
+# auto scalining 
+# resource "aws_autoscaling_group" "asg" {
+#     name = var.name
+#     availability_zones = ["eu-west-1c"]
+#     desired_capacity = 1
+#     max_size = 1
+#     min_size = 1
+
+#     launch_template {
+#         id      = var.launch_template_id
+#         version = "$Latest"
+#     }
+# }
+
 # Launching an EC2 instance from our web app AMI
 # resource is the keyword that allows us to add AWS resource as task in Ansible
 resource "aws_instance" "web_app_instance" {
@@ -168,71 +200,77 @@ resource "aws_instance" "web_app_instance" {
   # Assigning a subnet
   subnet_id = aws_subnet.subnet_for_vpc.id
   # Security group
+  private_ip = var.webapp_ip
   vpc_security_group_ids = [aws_security_group.terraform_webapp_sg.id]
 
   tags = {
     Name = var.webapp_name
   }
-  connection {
-    type = "ssh"
-    user = "ubuntu"
-    private_key = file(var.aws_key_path)
-    #private_key = "${file("~/.ssh/eng84devops.pem")}"
-    #host = aws_instance.web_app_instance.public_ip
-    host = self.public_ip
-  }
 
-  # provisioner "remote-exec" {
-  #   inline = [ "cd app/","DB_HOST=${aws_instance.db_instance.public_ip} pm2 start app.js"]
+  # connection {
+  #   type = "ssh"
+  #   user = "ubuntu"
+  #   private_key = file(var.aws_key_path)
+  #   agent = true
+  #   #private_key = "${file("~/.ssh/eng84devops.pem")}"
+  #   #host = aws_instance.web_app_instance.public_ip
+  #   host = self.public_ip
   # }
 
-    # Move the provisions from local machine to the instance
-  provisioner "file" {
-    source = "./scripts/app/init.sh.tpl"
-    destination = "/home/ubuntu/init.sh.tpl"
-  }
-  
-  # Allow it to be executable and run it
+  # connection {
+  #   type = "ssh"
+  #   user = "ubuntu"
+  #   private_key = file(pathexpand("~/.ssh/eng84devops.pem"))
+  #   #private_key = file(var.aws_key_path)
+  #   #host = self.public_ip
+  #   host = aws_instance.web_app_instance.public_ip
+  # }
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/ubuntu/init.sh",
-      "sudo /home/ubuntu/init.sh"
+      "cd app",
+      # "echo \"export DB_HOST=mongodb://30.0.30.30:27017/posts\" >> /home/ubuntu/.bashrc",
+      # ". /home/ubuntu/.bashrc",
+      "sudo pm2 kill",
+      "sudo -E npm install",
+      "nodejs seeds/seed.js",
+      "sudo -E pm2 start app.js",
     ]
   }
-}
-
-resource "aws_instance" "db_instance" {
-  ami = var.db_ami_id
-  instance_type = "t2.micro"
-  associate_public_ip_address = true
-  key_name = var.aws_key_name
-  subnet_id = aws_subnet.subnet_for_vpc_private.id
-  vpc_security_group_ids = [aws_security_group.terraform_db_sg.id]
-
-
-  tags = {
-    Name = var.db_name
-  }
   connection {
-    type = "ssh"
-    user = "ubuntu"
-    private_key = "${file("~/.ssh/eng84devops.pem")}"
-    host = self.public_ip
-    #host = aws_instance.db_instance.public_ip
-    }
-  provisioner "remote-exec" {
-    inline = [ "sudo systemctl start mongod" ]
-    }
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("C:/Users/uziol/.ssh/eng84devops.pem")
+    host        = self.public_ip
+  }
 }
+  # provisioner "file" {
+  #   source      = "./scripts/app/init.sh"
+  #   destination = "/home/ubuntu/init.sh"
+  #   #destination = "/tmp/init.sh"
+  # }
+
+
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "./scripts/app/init.sh",
+  #     "/home/ubuntu/init.sh"
+  #   ]
+  # }
+
+
+  # Change permissions on bash script and execute.
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "chmod +x /home/ubuntu/init.sh",
+  #     #"bash /tmp/init.sh",
+  #     "bash /home/ubuntu/init.sh",
+  #   ]
+  # }
 
 
 
-
-
-# script for the app instance
-data "template_file" "app_init" {
-    template = "${file("./scripts/app/init.sh.tpl")}"
-}
+#   depends_on = [aws_instance.db_instance]
+# }
 
 
 

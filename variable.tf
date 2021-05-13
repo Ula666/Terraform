@@ -32,11 +32,22 @@ variable "aws_key_name" {
 variable "aws_key_path" {
   default = "~/.ssh/eng84devops.pem"
 }
+#private_key = file(pathexpand("~/.ssh/eng84devops.pem"))
 
 variable "my_ip" {
   default = "94.0.131.111/32"
 }
 
+variable "webapp_ip"{
+  default = "30.0.1.30"
+}
+
+variable "db_ip"{
+  default = "30.0.30.30"
+}
+# variable "launch_template_id" {
+#     default = ""
+# }
 
 
 
