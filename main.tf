@@ -207,33 +207,21 @@ resource "aws_instance" "web_app_instance" {
     Name = var.webapp_name
   }
 
-  # connection {
-  #   type = "ssh"
-  #   user = "ubuntu"
-  #   private_key = file(var.aws_key_path)
-  #   agent = true
-  #   #private_key = "${file("~/.ssh/eng84devops.pem")}"
-  #   #host = aws_instance.web_app_instance.public_ip
-  #   host = self.public_ip
-  # }
 
-  # connection {
-  #   type = "ssh"
-  #   user = "ubuntu"
-  #   private_key = file(pathexpand("~/.ssh/eng84devops.pem"))
-  #   #private_key = file(var.aws_key_path)
-  #   #host = self.public_ip
-  #   host = aws_instance.web_app_instance.public_ip
-  # }
   provisioner "remote-exec" {
     inline = [
+      #". /etc/profile",
+      # "echo export DB_HOST='mongodb://30.0.30.30:27017/posts' | sudo tee -a /etc/profile", 
+      # "sudo pm2 kill",
+      # "echo 'export DB_HOST=mongodb://30.0.30.30:27017/posts' >> /home/ubuntu/.bashrc",
+      # ". /home/ubuntu/.bashrc", 
+      "echo 'export DB_HOST=mongodb://30.0.30.30:27017/posts' >> ~/.bashrc",
+      ". ~/.bashrc", 
       "cd app",
-      # "echo \"export DB_HOST=mongodb://30.0.30.30:27017/posts\" >> /home/ubuntu/.bashrc",
-      # ". /home/ubuntu/.bashrc",
-      "sudo pm2 kill",
       "sudo -E npm install",
-      "nodejs seeds/seed.js",
+      "node seeds/seed.js",
       "sudo -E pm2 start app.js",
+
     ]
   
     connection {
@@ -245,39 +233,26 @@ resource "aws_instance" "web_app_instance" {
       host        = self.public_ip
   }
 }
+ depends_on = [aws_instance.db_instance]
 }
-  # provisioner "file" {
-  #   source      = "./scripts/app/init.sh"
-  #   destination = "/home/ubuntu/init.sh"
-  #   #destination = "/tmp/init.sh"
-  # }
 
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "./scripts/app/init.sh",
-  #     "/home/ubuntu/init.sh"
-  #   ]
-  # }
+ #  provisioner "remote-exec" {
+ #    inline = [
+ #      ". /etc/profile",
+ #      "echo export DB_HOST='mongodb://30.0.30.30:27017/posts' | sudo tee -a /etc/profile",
+ #    ]
+  
+ # }
 
+# "echo \"export DB_HOST=mongodb://30.0.30.30:27017/posts\" >> /home/ubuntu/.bashrc",
+# ". /home/ubuntu/.bashrc",
 
-  # Change permissions on bash script and execute.
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /home/ubuntu/init.sh",
-  #     #"bash /tmp/init.sh",
-  #     "bash /home/ubuntu/init.sh",
-  #   ]
-  # }
+ 
 
 
 
-#   depends_on = [aws_instance.db_instance]
-# }
-
-
-
-# # terraform init
-# # terraform plan
-# # terraform apply 
-# # terraform destroy 
+# #terraform init
+# #terraform plan
+# #terraform apply 
+# #terraform destroy 
