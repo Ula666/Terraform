@@ -174,7 +174,7 @@ resource "aws_instance" "db_instance" {
 # auto scalining 
 # resource "aws_autoscaling_group" "asg" {
 #     name = var.name
-#     availability_zones = ["eu-west-1c"]
+#     availability_zones = ["eu-west-1b"]
 #     desired_capacity = 1
 #     max_size = 1
 #     min_size = 1
@@ -235,13 +235,16 @@ resource "aws_instance" "web_app_instance" {
       "nodejs seeds/seed.js",
       "sudo -E pm2 start app.js",
     ]
+  
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      agent       = false
+      private_key = file(var.aws_key_path)
+      #private_key = file("C:/Users/uziol/.ssh/eng84devops.pem")
+      host        = self.public_ip
   }
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file("C:/Users/uziol/.ssh/eng84devops.pem")
-    host        = self.public_ip
-  }
+}
 }
   # provisioner "file" {
   #   source      = "./scripts/app/init.sh"
