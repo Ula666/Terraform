@@ -210,19 +210,20 @@ resource "aws_instance" "web_app_instance" {
 
   provisioner "remote-exec" {
     inline = [
-      #". /etc/profile",
-      # "echo export DB_HOST='mongodb://30.0.30.30:27017/posts' | sudo tee -a /etc/profile", 
+      
+      "echo export DB_HOST='mongodb://30.0.30.30:27017/posts' | sudo tee -a /etc/profile", 
+      ". /etc/profile",
       # "sudo pm2 kill",
       # "echo 'export DB_HOST=mongodb://30.0.30.30:27017/posts' >> /home/ubuntu/.bashrc",
       # ". /home/ubuntu/.bashrc", 
-      "echo 'export DB_HOST=mongodb://30.0.30.30:27017/posts' >> ~/.bashrc",
-      ". ~/.bashrc", 
+      # "echo 'export DB_HOST=mongodb://30.0.30.30:27017/posts' >> ~/.bashrc",
+      # ". ~/.bashrc", 
       "cd app",
       "sudo -E npm install",
       "node seeds/seed.js",
       "sudo -E pm2 start app.js",
-
     ]
+  
   
     connection {
       type        = "ssh"
@@ -233,6 +234,19 @@ resource "aws_instance" "web_app_instance" {
       host        = self.public_ip
   }
 }
+# provision with seed db file
+#     provisioner "file" {
+#     source      = "./scripts/app/seed_db.sh"
+#     destination = "/tmp/seed_db.sh"
+#   }
+
+#   # Change permissions on bash script and execute.
+#   provisioner "remote-exec" {
+#     inline = [
+#       "chmod +x /tmp/seed_db.sh",
+#       "bash /tmp/seed_db.sh",
+#     ]
+# }
  depends_on = [aws_instance.db_instance]
 }
 
