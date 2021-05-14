@@ -206,8 +206,8 @@ resource "aws_security_group_rule" "priv_vpc_outbound" {
 
 
 
-
-# target group:
+# LOAD BALANCER
+# create target group:
 resource "aws_lb_target_group" "target_group" {
   name     = "eng84-ula-terraform-tg"
   port     = 80
@@ -225,11 +225,11 @@ resource "aws_lb" "load_balancer" {
   ip_address_type    = "ipv4"
   enable_deletion_protection = false
   security_groups    = [aws_security_group.terraform_webapp_sg.id]
-  subnets            = [aws_subnet.subnet_for_vpc.id, aws_subnet.subnet_for_vpc_public2.id, aws_subnet.subnet_for_vpc_public3.id]
+  subnets            = [aws_subnet.subnet_for_vpc.id, aws_subnet.subnet_for_vpc_public2.id]
 }
 
 
-# Create a listener to forward traffic from load balancer
+# Create a listenerthat allow to forward traffic from load balancer
 resource "aws_lb_listener" "listener" {
   load_balancer_arn = aws_lb.load_balancer.arn
   port              = "80"
@@ -250,41 +250,55 @@ resource "aws_lb_listener" "listener" {
 resource "aws_launch_template" "launch_template" {
   name = "eng84_ula_terraform_ltemplate"
   ebs_optimized = false
-
   image_id = var.webapp_ami_id
   instance_type = "t2.micro"
+  key_name = var.aws_key_name
 
   network_interfaces {
     associate_public_ip_address = true
     security_groups = [aws_security_group.terraform_webapp_sg.id]
   }
-
-  depends_on = [aws_security_group.terraform_webapp_sg]
+  #name the instance
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "eng84_ula_terraform_web"
+    }
+  }
+#run the provision file when the new instance is launched
+  #user_data = filebase64("./scripts/init.sh")
+  user_data = filebase64("scripts/init.sh")
+  #user_data = file("init.sh")
+  #depends_on = [aws_security_group.terraform_webapp_sg]
 }
+
 
 # Create an auto-scaling group
 resource "aws_autoscaling_group" "auto_scale" {
   name = "eng84_ula_terraform_asg"
-  desired_capacity = 1
-  max_size         = 2
+  desired_capacity = 2
+  max_size         = 3
   min_size         = 1
   
-
+  # Heath checks
+  health_check_grace_period = 250
+  health_check_type         = "ELB"
 
   lifecycle {
     ignore_changes = [target_group_arns]
   }
-
+  #attch load balancer target group
   target_group_arns = [aws_lb_target_group.target_group.arn]
 
   vpc_zone_identifier = [aws_subnet.subnet_for_vpc.id, aws_subnet.subnet_for_vpc_public2.id]
-                         
+  #launch the template          
   launch_template {
     id      = aws_launch_template.launch_template.id
     version = "$Latest"
   }
-}
 
+   depends_on = [aws_launch_template.launch_template, aws_lb_listener.listener]
+}
 
 
 
