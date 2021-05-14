@@ -97,7 +97,14 @@ resource "aws_instance" "app_instance"{
 
 
 ## TASK:
-- ![image](https://user-images.githubusercontent.com/47173937/117986835-e152c700-b331-11eb-82d2-4975e1ff5934.png)
+
+![image](https://user-images.githubusercontent.com/47173937/118273034-569dd380-b4bb-11eb-8f4f-eb4883728423.png)
+1. Create auto scaling on AWS
+2. Create Load Balancing on AWS
+3. Create auto scaling with Terraform
+4. Create Load Balancing with Terraform
+5. Make sure that /posts works
+
 
 - 
 
