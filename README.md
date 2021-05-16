@@ -106,5 +106,43 @@ resource "aws_instance" "app_instance"{
 5. Make sure that /posts works
 
 
-- 
+### Application Load Balancer:
+- A load balancer has the following functions:
+- Identifies incoming traffic and directs it to the right resource type. 
+- Ensure high availability by only routing to available servers.
+- Used to create HTTP and HTTPS access points with dynamic port mapping
+
+### Listener for Load Balancer:
+- is a process that checks for connection requests, using the protocol and port that you configure. 
+- The rules that you define for a listener determine how the load balancer routes requests to the targets in one or more target groups.
+
+### Target Group for Application Load Balancer:
+- Each target group is used to route requests to one or more registered targets.
+- When you create each listener rule, you specify a target group and conditions. When a rule condition is met, traffic is forwarded to the corresponding target group. 
+- You can create different target groups for different types of requests. 
+- For example, create one target group for general requests and other target groups for requests to the microservices for your application.
+
+### Security Group:
+- Acts as a virtual firewall for your instance to control inbound and outbound traffic.
+### Auto Scaling:
+- Helps to maintain application availability
+- Enables to automatically add or remove EC2 instances according to conditions you define
+- An auto scaling group is a collection of EC2 instances that can scale up or down depending on application demand. 
+
+
+1. Create VPC
+2. Create Internet Gateway
+3. Create Subnets and Aassign them to your VPC
+4. Create Route Tables
+5. Add Subnet Associations to route tables
+6. Create security groups and rules
+7. Create target group
+8. Create Load Balancer
+9. Create Listener
+10. Create AMI Template + provision the instance
+11. Create auto Scaling Group + health checks
+12. Attach load balancer target group + launch the template
+13. Launch other instnace if necessary (DB)
+
+
 
